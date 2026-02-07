@@ -22,10 +22,10 @@ app.post("/schedule", async (req, res) => {
   res.json({ success: true });
 });
 
-app.get("/emails", async (_, res) => {
-  const result = await db.query("SELECT * FROM emails");
-  res.json(result.rows);
+app.get("/healthz", (req, res) => {
+  res.status(200).send("OK");
 });
+
 
 const PORT = process.env.PORT || 4000;
 
