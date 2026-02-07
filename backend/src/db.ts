@@ -1,20 +1,10 @@
 import { Pool } from "pg";
 
-export const db = new Pool({
-  user: "inbox",
-  password: "inbox",
-  host: "localhost",
-  port: 5432,
-  database: "inbox",
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
 
-db.query(`
-  CREATE TABLE IF NOT EXISTS emails (
-    id SERIAL PRIMARY KEY,
-    email TEXT,
-    subject TEXT,
-    body TEXT,
-    send_at TIMESTAMP,
-    status TEXT DEFAULT 'scheduled'
-  )
-`);
+export default pool;
